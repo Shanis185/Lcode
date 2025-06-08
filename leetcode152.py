@@ -1,12 +1,17 @@
 class Solution(object):
     def maxProduct(self, nums):
-        curr_max=curr_min=result=nums[0]
-
-        for i in nums[1:]:
-            if i<0:
-                curr_max,curr_min=curr_min,curr_max
-            curr_max=max(i,curr_max*i)
-            curr_min=min(i,curr_min*i)
-            result=max(result,curr_max)
-        return result
+        product=1
+        max_prod=float('-inf')
+        for num in nums:
+            product*=num
+            max_prod=max(max_prod,product)
+            if num==0:
+                product=1
         
+        product=1
+        for num in reversed(nums):
+            product*=num
+            max_prod=max(max_prod,product)
+            if num==0:
+                product=1
+        return max_prod
